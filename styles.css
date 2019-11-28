@@ -1,0 +1,56 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+.container {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 150px;
+    position: relative;
+}
+
+.container-two {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 150px;
+    display: none;
+}
+
+div button {
+    border: 2px solid white;
+    padding: 15px 30px 15px 30px;
+    border-radius: 10px;
+    text-transform: uppercase;
+    background-color: rgba(155, 155, 155, 0);
+    color: white;
+}
+
+.container div{
+    position: absolute;
+    display: flex;
+    width: 100%;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+
+}
+
+button:hover {
+    color: black;
+    background-color: white;
+    padding: 20px 35px 20px 35px;
+
+}
+
+/* on start */
+.apear {
+    display: block;
+}
+
+.disapear {
+    display: none;
+}
