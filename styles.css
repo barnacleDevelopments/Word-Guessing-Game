@@ -9,14 +9,7 @@ body {
     text-align: center;
     margin-top: 150px;
     position: relative;
-}
-
-.container-two {
-    width: 50%;
-    margin: 0 auto;
-    text-align: center;
-    margin-top: 150px;
-    display: none;
+    font-size: 1.5rem;
 }
 
 div button {
@@ -46,6 +39,30 @@ button:hover {
 
 }
 
+/* page one */
+
+.container-two {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 150px;
+    display: none;
+    font-size: 1.5rem;
+}
+
+#word-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+#word-list > li:hover {
+    font-size: 1.8rem;
+    color: green;
+}
+
+
 /* on start */
 .apear {
     display: block;
@@ -54,3 +71,4 @@ button:hover {
 .disapear {
     display: none;
 }
+

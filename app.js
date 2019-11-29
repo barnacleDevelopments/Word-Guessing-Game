@@ -1,13 +1,18 @@
 const startBtn = document.querySelector("#start-btn");
-const containerTwo = document.querySelector(".container-two");
-const container = document.querySelector(".container");
 const wordList = document.querySelector("#word-list");
+const container = document.querySelector(".container");
+const containerTwo = document.querySelector(".container-two");
+const endMessage = document.querySelector("#game-end-message");
+const winningWordMessage = document.querySelector("#winning-word")
 
-var generatedWords = [];
+let newWords, 
+    secretWord,
+    triesLeft = 4
 
 function startGame() {
     containerTwo.classList.add("apear");
     container.classList.add("disapear");
+    printWords();
 };
 
 function generateWords() {
@@ -19,36 +24,62 @@ function generateWords() {
     return randomWordList;
 }
 
+newWords = generateWords();
+
 function printWords() {
-    let newWords = generateWords();
     newWords.forEach((word) => {
         let words = document.createTextNode(word),
             wordBox = document.createElement("li");
-                wordBox.classList.add("list-item")
                 wordBox.appendChild(words)
                 wordList.appendChild(wordBox);
     }); 
-    generatedWords.push(...newWords)
 }
 
 function selectedSecretWord() {
-    console.log(generatedWords)
     let secretIndex = Math.floor(Math.random() * 10)
-    let secretWord = generatedWords[secretIndex];
-    console.log(secretWord)
+    let secretWord = newWords[secretIndex];
     return secretWord
-   
 }
 
-var secretWord = selectedSecretWord()
-
+secretWord = selectedSecretWord()
 console.log(secretWord)
 
+function evaluateWord(selectedWord) {
+if(selectedWord !== secretWord){
+      let rightLetters = 0;
+      let letterBox = [...secretWord];
+        letterBox.forEach((letter) => {
+            if(selectedWord.includes(letter)){
+                    rightLetters++
+            }
+        });
+        return rightLetters 
+    }
+}
 wordList.addEventListener("click", (e) => {
-    if(e.target.textContent === secretWord) {
-        console.log("whatup!")
+    var selectedWord = e.target.textContent;
+    if(triesLeft === 0) {
+        let loseMessage = document.createTextNode("You lost!");
+        endMessage.appendChild(loseMessage)
+        wordList.remove();
+    } else if(e.target.className === "selected") {
+        return false;
+    } else if(selectedWord !== secretWord) {
+        var selectedWord = e.target.textContent;
+            selectedWord.textContent = ""
+        let numOfRightLetters = evaluateWord(selectedWord);
+        let rightLettersMessage = document.createTextNode(`: ${numOfRightLetters} matching letters!`);
+        e.target.appendChild(rightLettersMessage);
+        e.target.classList.add("selected")
+        triesLeft--
+
+    } else {
+        let winMessage = document.createTextNode("You win!");
+        let winningWord = document.createTextNode(`Winning word: "${secretWord}"`);
+        winningWordMessage.appendChild(winningWord)
+        endMessage.appendChild(winMessage)
+        wordList.remove();     
     }
 });
 
 startBtn.addEventListener("click", startGame)
-startBtn.addEventListener("click", printWords)
