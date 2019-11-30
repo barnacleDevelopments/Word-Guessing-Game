@@ -3,11 +3,12 @@ const wordList = document.querySelector("#word-list");
 const container = document.querySelector(".container");
 const containerTwo = document.querySelector(".container-two");
 const endMessage = document.querySelector("#game-end-message");
-const winningWordMessage = document.querySelector("#winning-word")
+const winningWordMessage = document.querySelector("#winning-word");
+const guessesContainer = document.querySelector("#guesses")
 
 let newWords, 
     secretWord,
-    triesLeft = 4
+    triesLeft = 3
 
 function startGame() {
     containerTwo.classList.add("apear");
@@ -42,7 +43,6 @@ function selectedSecretWord() {
 }
 
 secretWord = selectedSecretWord()
-console.log(secretWord)
 
 function evaluateWord(selectedWord) {
 if(selectedWord !== secretWord){
@@ -56,14 +56,21 @@ if(selectedWord !== secretWord){
         return rightLetters 
     }
 }
-wordList.addEventListener("click", (e) => {
-    var selectedWord = e.target.textContent;
+
+function printResults(e) {
+        selectedWord = e.target.textContent;
+    let triesLeftNum = document.createTextNode(` ${triesLeft}`);
+        guessesContainer.textContent = ""
+        guessesContainer.appendChild(triesLeftNum)
+
     if(triesLeft === 0) {
         let loseMessage = document.createTextNode("You lost!");
         endMessage.appendChild(loseMessage)
         wordList.remove();
+
     } else if(e.target.className === "selected") {
         return false;
+
     } else if(selectedWord !== secretWord) {
         var selectedWord = e.target.textContent;
             selectedWord.textContent = ""
@@ -80,6 +87,7 @@ wordList.addEventListener("click", (e) => {
         endMessage.appendChild(winMessage)
         wordList.remove();     
     }
-});
+};
 
 startBtn.addEventListener("click", startGame)
+wordList.addEventListener("click", printResults)
